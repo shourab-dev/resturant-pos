@@ -28,7 +28,7 @@
         </li>
         <li class="divider"></li>
         <li>
-            <a href="#0">
+            <a wire:navigate href="{{ route('profile') }}">
                 <i class="lni lni-user"></i> View Profile
             </a>
         </li>
@@ -43,7 +43,10 @@
         </li>
         <li class="divider"></li>
         <li>
-            <a href="#0"> <i class="lni lni-exit"></i> Sign Out </a>
+            <a href="#0" x-on:click="$refs.signout.submit()"> <i class="lni lni-exit"></i> Sign Out </a>
+            <form action="{{ route('logout') }}" x-ref="signout" method="POST">
+                @csrf
+            </form>
         </li>
     </ul>
 </div>
