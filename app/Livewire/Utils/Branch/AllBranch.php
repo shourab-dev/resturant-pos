@@ -14,7 +14,7 @@ class AllBranch extends Component
     public function render()
     {
         return view('livewire.utils.branch.all-branch', [
-            'branches' => Branch::select('id', 'title')->latest()->simplePaginate(20),
+            'branches' => Branch::select('id', 'title', 'status')->latest()->simplePaginate(20),
         ]);
     }
 }

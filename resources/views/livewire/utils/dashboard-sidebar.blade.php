@@ -22,6 +22,15 @@
         </a>
         
     </li>
+    <li class="nav-item {{request()->routeIs('category') ? 'active' : null }}">
+        <a href="{{ route('category') }}" wire:navigate >
+            <span class="icon">
+                <i class="lni lni-files"></i>
+            </span>
+            <span class="text">Manage Categories</span>
+        </a>
+        
+    </li>
     {{-- <li class="nav-item nav-item-has-children">
         <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_2" aria-controls="ddmenu_2"
             aria-expanded="false" aria-label="Toggle navigation">

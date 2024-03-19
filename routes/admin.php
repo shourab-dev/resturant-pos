@@ -3,6 +3,7 @@
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Backend\Branch;
+use App\Livewire\Backend\Category;
 use App\Livewire\Backend\Dashboard;
 use App\Livewire\Backend\Profile;
 use Illuminate\Support\Facades\Auth;
@@ -22,4 +23,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     //* MANAGE BRANCH
     Route::get('/branch', Branch::class)->name('branch');
+
+    //* MANAGE CATEGORY
+    Route::get('/categories',  Category::class)->name('category');
+
+
 });

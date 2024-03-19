@@ -12,10 +12,10 @@ class Branch extends Component
     public $title;
     public $editedId;
 
-    function rules($id = null)
+    function rules()
     {
         return [
-            'title' => "required|min:3|max:255|unique:branches,title," . $id
+            'title' => "required|min:3|max:255|unique:branches,title," . $this->editedId
         ];
     }
 
@@ -38,6 +38,24 @@ class Branch extends Component
         ]);
         $this->reset('title', 'editedId');
         $this->dispatch('refreshBranch', ['branch' => $branch]);
+    }
+
+
+
+    function delteBranch($id) {
+        $branch = BranchModel::findOrFail($id);
+        $branch->delete();
+        $this->dispatch('toast', [
+            'type' => "success",
+            'msg' => "Branch has been deleted",
+        ]);
+        $this->dispatch('refreshBranch', ['branch' => $branch]);
+        
+    }
+
+    function updateStatus(BranchModel $branch){
+        $branch->status = !$branch->status;
+        $branch->save();
     }
 
 

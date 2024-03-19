@@ -8,7 +8,7 @@
                     <button wire:loading.attr="disabled" wire:click="storeOrUpdateBranch"
                         class="main-btn primary-btn square-btn btn-sm btn-hover ">
                         {{ $editedId ? "Edit" : "Store" }} Branch
-                        <i class="lni lni-circle-plus"></i>
+                        <i class="lni lni-{{ $editedId ? "pencil" : "circle-plus" }}"></i>
                     </button>
                 </div>
 
