@@ -13,7 +13,16 @@
         </a>
         
     </li>
-    <li class="nav-item nav-item-has-children">
+    <li class="nav-item {{request()->routeIs('branch') ? 'active' : null }}">
+        <a href="{{ route('branch') }}" wire:navigate >
+            <span class="icon">
+                <i class="lni lni-apartment"></i>
+            </span>
+            <span class="text">Manage Branch</span>
+        </a>
+        
+    </li>
+    {{-- <li class="nav-item nav-item-has-children">
         <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_2" aria-controls="ddmenu_2"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon">
@@ -34,6 +43,6 @@
                 <a href="blank-page.html"> Blank Page </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 
 </ul>

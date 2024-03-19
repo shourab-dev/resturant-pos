@@ -2,6 +2,7 @@
 
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
+use App\Livewire\Backend\Branch;
 use App\Livewire\Backend\Dashboard;
 use App\Livewire\Backend\Profile;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,10 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     //* PROFILE ROUTES
-
     Route::get('/profile', Profile::class)->name('profile');
+
+
+
+    //* MANAGE BRANCH
+    Route::get('/branch', Branch::class)->name('branch');
 });

@@ -116,7 +116,7 @@
     <!-- ======== main-wrapper end =========== -->
 
     <!-- ========= All Javascript files linkup ======== -->
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(
     [
     "resources/backend/assets/js/bootstrap.bundle.min.js",
@@ -131,6 +131,28 @@
     ]
     )
     @livewireScripts
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+            },
+            });
+        window.addEventListener('toast', (e) => {
+            const {type,msg} = e.detail[0]
+                
+                Toast.fire({
+                icon: type,
+                title: msg,
+                });
+            
+        })
+    </script>
 </body>
 
 </html>
