@@ -24,11 +24,22 @@
                 </div>
                 <div class="input-style-1 position-relative">
 
-                    <input wire:model="icon" type="file">
-                    <img src="{{ $icon?->temporaryUrl() }}" alt="" class="previewImage w-100 mt-2">
+                    <input wire:model="icon" type="file" id="upload{{ $iteration }}">
+                    <img src="{{ $icon?->temporaryUrl() }}" alt="" class="previewImage w-100 mt-2" >
                     <div wire:loading wire:target="icon">
                         Uploading....
                     </div>
+                </div>
+                <div class="input-style-1 position-relative">
+
+                    <label wire:ignore for="Branches">
+                        Select a Branch
+                        <select wire:model="branches" class="multiSelectTag  w-100" id="Branches" multiple>
+                            @foreach ($allBranches as $item)
+                                <option value="{{ $item->id }}">{{ $item->title }}</option>
+                            @endforeach
+                        </select>
+                    </label>
                 </div>
 
 
@@ -50,3 +61,38 @@
 
 
 </div>
+
+@assets
+<style>
+    span {
+        display: block !important;
+    }
+    .select2-selection__choice{
+        background-color: transparent !important;
+        border: 1px solid dodgerblue !important;
+    }
+    .select2-selection__choice button{
+        border: none !important;
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'
+    integrity='sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=='
+    crossorigin='anonymous'></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endassets
+
+@script
+
+<script>
+    document.addEventListener('livewire:navigated', ()=>{
+
+        $('.multiSelectTag').select2({
+            tags: true
+        });
+        $('.multiSelectTag').on('change',function(){
+            $wire.set('branches',$(this).val())
+        })
+    })
+</script>
+@endscript
