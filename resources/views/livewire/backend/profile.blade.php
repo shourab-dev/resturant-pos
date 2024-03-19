@@ -20,12 +20,12 @@
     <div class="card-style mt-5 col-lg-8">
         <h4 class="mb-25">Profile Setting</h4>
 
-        <form>
+        
             <div class="row align-items-center">
                 <div class="col-lg-4">
-                    <div x-data="{ uploading: true, progress: 0 }" x-on:livewire-upload-start="uploading = true"
-                        x-on:livewire-upload-finish="uploading = false" x-on:livewire-upload-cancel="uploading = false"
-                        x-on:livewire-upload-error="uploading = false"
+                    <div class="loaderWrapper" x-data="{ uploading: false, progress: 0 }"
+                        x-on:livewire-upload-start="uploading = true" x-on:livewire-upload-finish="uploading = false"
+                        x-on:livewire-upload-cancel="uploading = false" x-on:livewire-upload-error="uploading = false"
                         x-on:livewire-upload-progress="progress = $event.detail.progress">
 
                         <label for="profileImage">
@@ -36,8 +36,16 @@
                             @endif
                         </label>
                         <input type="file" id="profileImage" wire:model="profileImage" class="d-none">
-                        <div x-show="uploading">
-                            <progress max="100" x-bind:value="progress"></progress>
+                        @error('profileImage')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <div x-show="uploading" class="loaderProgress">
+                            <div class="d-flex">
+                                <span x-text="progress">
+                                </span>%<div class="spinner-border" role="status"></div>
+
+                            </div>
+
                         </div>
                     </div>
 
@@ -45,7 +53,7 @@
                 <div class="col-lg-8">
 
                     <div class="text-end">
-                        <button class="main-btn primary-btn square-btn btn-sm btn-hover ">
+                        <button wire:loading.attr="disabled" wire:click="updateProfile" class="main-btn primary-btn square-btn btn-sm btn-hover ">
                             Save
                             <i class="lni lni-checkmark-circle"></i>
                         </button>
@@ -53,11 +61,11 @@
 
                     <br>
                     <div class="input-style-3 position-relative">
-                        <input type="text" placeholder="Full Name">
+                        <input wire:keydown.enter="updateProfile" wire:model="name" value="{{ auth()->user()->name }}" type="text" placeholder="Full Name">
                         <span class="icon"><i class="lni lni-user"></i></span>
                     </div>
                     <div class="input-style-3">
-                        <input type="email" placeholder="Email">
+                        <input wire:keydown.enter="updateProfile" value="{{ auth()->user()->email }}" type="email" placeholder="Email" wire:model="email">
                         <span class="icon"><i class="lni lni-envelope"></i></span>
                     </div>
                 </div>

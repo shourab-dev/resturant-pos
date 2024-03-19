@@ -5955,3 +5955,35 @@ h6,
     transform: rotate(360deg);
   }
 }
+
+
+
+/* *LOADER PROGRESS */
+.loaderWrapper{
+  position: relative;
+  width: fit-content;
+  border-radius: 50%;
+  
+}
+.loaderProgress{
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 700;
+
+}
+
+.loaderProgress .spinner-border{
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: calc(50% - 30px);
+
+  left: calc(50% - 30px);
+
+}
