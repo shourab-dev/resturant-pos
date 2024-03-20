@@ -20,7 +20,7 @@ class Category extends Component
     {
         return [
             'title' => "required|min:3|unique:categories,title," . $this->editedId,
-            'icon' => 'nullable|image',
+            'icon' => 'nullable',
         ];
     }
 
@@ -28,7 +28,7 @@ class Category extends Component
     {
         $this->validate();
 
-        if ($this->icon) {
+        if ($this->icon && !is_string($this->icon)) {
             $iconName = str($this->title)->slug() . "." . $this->icon->getClientOriginalExtension();
             $filePath = $this->icon->storeAs('categories', $iconName, 'public');
         }
@@ -36,12 +36,18 @@ class Category extends Component
         $category = ModelsCategory::findOrNew($this->editedId);
         $category->title = $this->title;
         $category->slug = str($this->title)->slug();
-        $category->icon = $this->icon ? $filePath : $category->icon;
+        $category->icon = $this->icon && !is_string($this->icon) ? $filePath : $category->icon;
         $category->save();
         $branchIds = $this->createTagableBranch();
         $category->branches()->sync($branchIds);
         $this->reset('title', 'editedId', 'icon', 'branches');
         $this->iteration++;
+        $type = $this->editedId != null ? 'Updated' : "Added";
+
+        $this->dispatch('toast', [
+            'type' => "success",
+            'msg' => "Category has been $type",
+        ]);
         $this->dispatch('refreshBranchValues');
     }
 
@@ -72,10 +78,10 @@ class Category extends Component
 
     public function render()
     {
-        
+
 
         return view('livewire.backend.category', [
-            'allBranches' => Branch::select('id', 'title')->latest()->get()
+            'allBranches' => Branch::where('status',true)->select('id', 'title')->latest()->get()
         ]);
     }
 }
