@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backend;
 
+use App\MediaUploader;
 use App\Models\Branch;
 use Livewire\Component;
 use Livewire\Attributes\Lazy;
@@ -11,7 +12,7 @@ use App\Models\Category as ModelsCategory;
 
 class Category extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, MediaUploader;
     public $title, $editedId = null, $icon, $branches = [], $iteration;
 
 
@@ -28,12 +29,9 @@ class Category extends Component
     {
         $this->validate();
 
-        if ($this->icon && !is_string($this->icon)) {
-            $iconName = str($this->title)->slug() . "." . $this->icon->getClientOriginalExtension();
-            $filePath = $this->icon->storeAs('categories', $iconName, 'public');
-        }
 
         $category = ModelsCategory::findOrNew($this->editedId);
+        $filePath = $this->uploadMedia($this->icon,str($this->title)->slug(),'categories',$category->icon);
         $category->title = $this->title;
         $category->slug = str($this->title)->slug();
         $category->icon = $this->icon && !is_string($this->icon) ? $filePath : $category->icon;
@@ -81,7 +79,7 @@ class Category extends Component
 
 
         return view('livewire.backend.category', [
-            'allBranches' => Branch::where('status',true)->select('id', 'title')->latest()->get()
+            'allBranches' => Branch::where('status', true)->select('id', 'title')->latest()->get()
         ]);
     }
 }

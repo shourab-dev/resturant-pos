@@ -80,8 +80,10 @@
 
             <label wire:ignore for="Branches">
                 <span>Select Categories <span class="d-inline text-danger">*</span></span>
-                <select wire:model="categories" class="multiSelectTag  w-100" id="categories" multiple>
-
+                <select wire:model="categoriesIds" class="multiSelectTag  w-100" id="categories" multiple>
+                    @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                    @endforeach
                 </select>
                 @error('branches')
                 <span class="text-danger">{{ $message }}</span>
@@ -99,6 +101,7 @@
                 <label class="form-check-label" for="featured">Featured</label>
             </div>
         </div>
+
 
 
     </div>
@@ -142,11 +145,12 @@
         window.addEventListener('refreshCategoryValues', function(){
             $('.multiSelectTag').val(null).trigger('change')  
         })
-        window.addEventListener('updateCategories', function(){
-            let categoriesIds = $wire.branches;
+        // window.addEventListener('updateCategories', function(){
+        //     let categoriesIds = $wire.branches;
             
-            $('.multiSelectTag').val(Object.values(categoriesIds)).trigger('change')  
-        })
+        //     $('.multiSelectTag').val(Object.values(categoriesIds)).trigger('change')  
+        // })
+        
 
     })
 </script>

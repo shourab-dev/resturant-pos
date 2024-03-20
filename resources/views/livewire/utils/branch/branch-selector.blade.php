@@ -1,10 +1,10 @@
 <div class="header-search d-none d-md-flex">
     
     
-    <select name="" id="" class="form-control ">
+    <select wire:model="selectedBranch" wire:change="updateBranch" id="" class="form-control ">
         @foreach ($branches as $branch)
             
-        <option value="{{ $branch->id }}" {{ $branch->id == $selectedId ? "selected" : "" }} >{{ $branch->title }}</option>
+        <option value="{{ $branch->id }}"  >{{ str($branch->title)->headline() }}</option>
         
         @endforeach
     </select>
