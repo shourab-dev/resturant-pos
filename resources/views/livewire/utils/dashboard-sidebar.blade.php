@@ -1,6 +1,6 @@
 <ul>
     <li class="nav-item {{request()->routeIs('dashboard') ? 'active' : null }}">
-        <a href="{{ route('dashboard') }}" wire:navigate >
+        <a href="{{ route('dashboard') }}" wire:navigate>
             <span class="icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -11,25 +11,34 @@
             </span>
             <span class="text">Dashboard</span>
         </a>
-        
+
     </li>
     <li class="nav-item {{request()->routeIs('branch') ? 'active' : null }}">
-        <a href="{{ route('branch') }}" wire:navigate >
+        <a href="{{ route('branch') }}" wire:navigate>
             <span class="icon">
                 <i class="lni lni-apartment"></i>
             </span>
             <span class="text">Manage Branch</span>
         </a>
-        
+
     </li>
     <li class="nav-item {{request()->routeIs('category') ? 'active' : null }}">
-        <a href="{{ route('category') }}" wire:navigate >
+        <a href="{{ route('category') }}" wire:navigate>
             <span class="icon">
                 <i class="lni lni-files"></i>
             </span>
             <span class="text">Manage Categories</span>
         </a>
-        
+
+    </li>
+    <li class="nav-item {{request()->routeIs('foods.*') ? 'active' : null }}">
+        <a href="{{ route('foods.view') }}" wire:navigate>
+            <span class="icon">
+                <i class="lni lni-cake"></i>
+            </span>
+            <span class="text">Manage Foods</span>
+        </a>
+
     </li>
     {{-- <li class="nav-item nav-item-has-children">
         <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_2" aria-controls="ddmenu_2"

@@ -56,6 +56,8 @@ class Branch extends Component
     function updateStatus(BranchModel $branch){
         $branch->status = !$branch->status;
         $branch->save();
+        $this->dispatch('refreshBranch');
+
     }
 
 

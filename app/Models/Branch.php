@@ -11,4 +11,10 @@ class Branch extends Model
     protected $fillable = [
         'title', 'slug'
     ];
+
+
+    function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

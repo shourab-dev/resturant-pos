@@ -6,7 +6,7 @@
                 <div class="image">
                     <img src="{{ getProfileImage() }}" alt="" />
                 </div>
-                <div>
+                <div class="d-none d-lg-block">
                     <h6 class="fw-500">{{ auth()?->user()?->name }}</h6>
                     <p>Admin</p>
                 </div>

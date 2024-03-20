@@ -38,9 +38,11 @@ class Category extends Component
         $category->slug = str($this->title)->slug();
         $category->icon = $this->icon ? $filePath : $category->icon;
         $category->save();
-        // $branchIds = $this->createTagableBranch();
+        $branchIds = $this->createTagableBranch();
+        $category->branches()->sync($branchIds);
         $this->reset('title', 'editedId', 'icon', 'branches');
         $this->iteration++;
+        $this->dispatch('refreshBranchValues');
     }
 
     private function createTagableBranch()
@@ -58,9 +60,19 @@ class Category extends Component
         return $newBranchIds;
     }
 
+    function editCategory(ModelsCategory $category)
+    {
+        $this->editedId = $category->id;
+        $this->title = $category->title;
+        $this->icon = $category->icon;
+        $this->branches = $category->branches()->get()->pluck('id');
+        $this->dispatch('updateBranches');
+    }
+
 
     public function render()
     {
+        
 
         return view('livewire.backend.category', [
             'allBranches' => Branch::select('id', 'title')->latest()->get()

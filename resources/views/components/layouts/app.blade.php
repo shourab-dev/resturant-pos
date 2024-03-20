@@ -45,15 +45,10 @@
                         <div class="header-left d-flex align-items-center">
                             <div class="menu-toggle-btn mr-15">
                                 <button id="menu-toggle" class="main-btn primary-btn btn-hover">
-                                    <i class="lni lni-chevron-left me-2"></i> Menu
+                                    <i class="lni lni-chevron-left me-2"></i> Menu {{ session()->has('selectedBranch') ? 'ues' : "no" }}
                                 </button>
                             </div>
-                            <div class="header-search d-none d-md-flex">
-                                <form action="#">
-                                    <input type="text" placeholder="Search..." />
-                                    <button><i class="lni lni-search-alt"></i></button>
-                                </form>
-                            </div>
+                            <livewire:utils.branch.branch-selector  />
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-7 col-6">
@@ -83,6 +78,10 @@
             </div>
             <!-- end container -->
         </section>
+
+
+
+
         <!-- ========== section end ========== -->
 
         <!-- ========== footer start =========== -->

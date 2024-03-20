@@ -7,9 +7,9 @@
             <th></th>
         </tr>
         @forelse ($branches as $key=>$branch)
-        <tr wire:key="{{ $branch->id }}" wire:transition>
+        <tr wire:key="{{ $branch->id }}" >
             <td>{{  $branches->firstItem() + $key }}</td>
-            <td>{{ $branch->title }}</td>
+            <td >{{ $branch->title }}</td>
             <td>
                 <div class="form-check form-switch toggle-switch">
                     <input wire:input="$parent.updateStatus({{ $branch->id }})" class="form-check-input" type="checkbox" id="toggleSwitch2" {{ $branch->status ?  'checked' : ''}} >

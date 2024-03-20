@@ -64,7 +64,9 @@ class Profile extends Component
 
     function updateProfile()
     {
-        $this->validate();
+        $this->validateOnly('name');
+        $this->validateOnly('email');
+        $this->validateOnly('profileImage');
 
         if ($this->profileImage) {
             if (auth()->user()->profile_url) {
