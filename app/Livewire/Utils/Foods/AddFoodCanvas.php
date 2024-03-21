@@ -36,8 +36,15 @@ class AddFoodCanvas extends Component
         $food->short_detail = $this->shortDetail;
         $food->price = $this->price;
         $food->caution = $this->caution;
+        $food->status = $this->status;
+        $food->is_featured = $this->featured;
         $food->image = $this->foodImg && !is_string($this->foodImg) ? $filePath : $food->image;
+
+        $this->reset('name', 'price', 'caution', 'status', 'featured', 'shortDetail', 'foodImg');
+        $this->iteration++;
         $food->save();
+        $food->categories()->sync($this->categoriesIds);
+        $this->dispatch('refreshCategoryValues');
     }
 
     function mount()

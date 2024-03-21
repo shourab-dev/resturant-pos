@@ -13,4 +13,10 @@ class Category extends Model
     {
         return $this->belongsToMany(Branch::class);
     }
+
+
+    function foods()
+    {
+        return $this->belongsToMany(Food::class);
+    }
 }

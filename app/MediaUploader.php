@@ -13,7 +13,7 @@ trait MediaUploader
                 Storage::disk('public')->delete($old);
             }
             $fileName = str($name)->slug() . "." . $file->getClientOriginalExtension();
-            $filePath = $this->icon->storeAs($dir, $fileName, $disk);
+            $filePath = $file->storeAs($dir, $fileName, $disk);
             return $filePath;
         }
     }

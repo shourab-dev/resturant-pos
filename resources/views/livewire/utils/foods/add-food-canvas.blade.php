@@ -135,11 +135,9 @@
 <script>
     document.addEventListener('livewire:navigated', ()=>{
 
-        $('.multiSelectTag').select2({
-            tags: true
-        });
+        $('.multiSelectTag').select2();
         $('.multiSelectTag').on('change',function(){
-            $wire.set('categories',$(this).val())
+            $wire.set('categoriesIds',$(this).val())
         })
 
         window.addEventListener('refreshCategoryValues', function(){
