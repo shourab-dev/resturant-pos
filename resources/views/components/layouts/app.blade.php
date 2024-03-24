@@ -19,7 +19,7 @@
 </head>
 
 <body>
-
+  
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
         <div class="navbar-logo">
@@ -45,10 +45,10 @@
                         <div class="header-left d-flex align-items-center">
                             <div class="menu-toggle-btn mr-15">
                                 <button id="menu-toggle" class="main-btn primary-btn btn-hover">
-                                    <i class="lni lni-chevron-left me-2"></i> Menu 
+                                    <i class="lni lni-chevron-left me-2"></i> Menu
                                 </button>
                             </div>
-                            <livewire:utils.branch.branch-selector  />
+                            <livewire:utils.branch.branch-selector />
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-7 col-6">

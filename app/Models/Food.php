@@ -13,4 +13,10 @@ class Food extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+
+    function variations()
+    {
+        return $this->hasMany(Variation::class);
+    }
 }

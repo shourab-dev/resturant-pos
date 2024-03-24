@@ -1,5 +1,10 @@
 <div class="container-lg">
-
+    <x-modal title="Food Variations" name="variation">
+        @slot('modalSlot')
+        <livewire:utils.foods.add-variation-foods :foodId="$foodId" />
+        @endslot
+    </x-modal>
+    @if ($currentStep == 1)
     <div class="card-style-3 mt-5 ">
         <div class="d-flex justify-content-between align-items-center mb-25">
             <h5>Add Food</h5>
@@ -105,6 +110,20 @@
 
 
     </div>
+    @endif
+    @if ($currentStep == 2)
+    <div class="card-style-3 mt-5 ">
+        <div class="d-flex justify-content-between align-items-center mb-25">
+            <h5>Add Food Variations</h5>
+            
+            <button wire:click="$dispatch('open-modal', {name: 'variation'})"
+                class="main-btn primary-btn square-btn btn-sm btn-hover ">
+                Add
+                <i class="lni lni-circle-plus"></i>
+            </button>
+        </div>
+    </div>
+    @endif
 
 </div>
 
@@ -134,7 +153,7 @@
 
 <script>
     document.addEventListener('livewire:navigated', ()=>{
-
+      
         $('.multiSelectTag').select2();
         $('.multiSelectTag').on('change',function(){
             $wire.set('categoriesIds',$(this).val())

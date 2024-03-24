@@ -2,18 +2,22 @@
 
 namespace App\Livewire\Utils\Foods;
 
-use App\MediaUploader;
-use App\Models\Category;
 use App\Models\Food;
-use Livewire\Attributes\On;
+use App\MediaUploader;
 use Livewire\Component;
+use App\Models\Category;
+use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Title;
+
+#[Title('Foods Management')]
 
 class AddFoodCanvas extends Component
 {
     use WithFileUploads, MediaUploader;
     public $editedId, $name, $shortDetail, $price, $caution, $foodImg, $iteration, $status = true, $featured = false, $categoriesIds, $categories = [];
-
+    public $steps = 4, $currentStep = 2;
+    public $foodId = 3; //* this will be null
     function rules()
     {
         return [
@@ -43,6 +47,7 @@ class AddFoodCanvas extends Component
         $this->reset('name', 'price', 'caution', 'status', 'featured', 'shortDetail', 'foodImg');
         $this->iteration++;
         $food->save();
+        $this->foodId = $food->id;
         $food->categories()->sync($this->categoriesIds);
         $this->dispatch('refreshCategoryValues');
     }
