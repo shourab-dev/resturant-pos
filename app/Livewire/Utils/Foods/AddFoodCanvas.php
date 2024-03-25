@@ -16,8 +16,12 @@ class AddFoodCanvas extends Component
 {
     use WithFileUploads, MediaUploader;
     public $editedId, $name, $shortDetail, $price, $caution, $foodImg, $iteration, $status = true, $featured = false, $categoriesIds, $categories = [];
-    public $steps = 4, $currentStep = 2;
-    public $foodId = 3; //* this will be null
+    public $steps = 4, $currentStep = 1;
+    public $foodId = null; //* this will be null
+
+
+
+
     function rules()
     {
         return [
@@ -45,11 +49,13 @@ class AddFoodCanvas extends Component
         $food->image = $this->foodImg && !is_string($this->foodImg) ? $filePath : $food->image;
 
         $this->reset('name', 'price', 'caution', 'status', 'featured', 'shortDetail', 'foodImg');
-        $this->iteration++;
         $food->save();
         $this->foodId = $food->id;
+
         $food->categories()->sync($this->categoriesIds);
         $this->dispatch('refreshCategoryValues');
+        $this->iteration++;
+        $this->currentStep++;
     }
 
     function mount()

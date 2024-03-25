@@ -1,5 +1,5 @@
 <div>
-
+    <input type="hidden" wire:model="foodId">
     <div class="input-style-1">
         <input type="text" wire:model="title" placeholder="Food Variation Name">
         @error('title')
@@ -14,7 +14,7 @@
         @enderror
     </div>
     <div class="input-style-1">
-        <input type="number" wire:mode="price" placeholder="Food Price">
+        <input type="number" wire:model="price" placeholder="Food Price">
         @error('price')
         <span class="text-danger">{{ $message }}</span>
         @enderror

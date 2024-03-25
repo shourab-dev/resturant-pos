@@ -4,6 +4,7 @@ namespace App\Livewire\Utils\Foods;
 
 use App\MediaUploader;
 use App\Models\Variation;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -18,13 +19,15 @@ class AddVariationFoods extends Component
     use WithFileUploads, MediaUploader;
 
 
-    public $title, $image, $price, $detail, $foodId, $editedId;
+    public $title, $image, $price, $detail,  $editedId;
 
+    #[Reactive]
+    public $foodId;
 
     function rules()
     {
         return [
-            'title' => "required|min:3|unique:variation,title," . $this->editedId,
+            'title' => "required|min:3|unique:variations,title," . $this->editedId,
             'image' => 'nullable|image',
             'price' => 'nullable|numeric'
         ];
@@ -32,7 +35,7 @@ class AddVariationFoods extends Component
 
     function storeOrUpdateVariation()
     {
-
+        
         $this->validate();
 
         $variation = Variation::findOrNew($this->editedId);
@@ -40,6 +43,7 @@ class AddVariationFoods extends Component
             $file = $this->uploadMedia($this->image, str()->slug($this->title), 'foods', $variation->food_image);
         }
         $variation->title = $this->title;
+        $variation->food_id = $this->foodId;
         $variation->price = $this->price;
         $variation->detail = $this->detail;
         $variation->food_image = $file ?? $variation->food_image;
@@ -50,10 +54,12 @@ class AddVariationFoods extends Component
             'msg' => "Food Variation has been added",
         ]);
         $this->dispatch('close-modal');
+        $this->dispatch('variation-added');
     }
 
     public function render()
     {
+        // dd($this->foodId);
         return view('livewire.utils.foods.add-variation-foods');
     }
 }

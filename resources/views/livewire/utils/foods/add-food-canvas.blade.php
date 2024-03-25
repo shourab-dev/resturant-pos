@@ -4,6 +4,7 @@
         <livewire:utils.foods.add-variation-foods :foodId="$foodId" />
         @endslot
     </x-modal>
+    
     @if ($currentStep == 1)
     <div class="card-style-3 mt-5 ">
         <div class="d-flex justify-content-between align-items-center mb-25">
@@ -122,6 +123,9 @@
                 <i class="lni lni-circle-plus"></i>
             </button>
         </div>
+        <livewire:utils.foods.all-food-variations  lazy :foodId="$foodId" />
+
+
     </div>
     @endif
 

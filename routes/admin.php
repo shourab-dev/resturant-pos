@@ -8,6 +8,7 @@ use App\Livewire\Backend\Dashboard;
 use App\Livewire\Backend\Food;
 use App\Livewire\Backend\Profile;
 use App\Livewire\Utils\Foods\AddFoodCanvas;
+use App\Livewire\Utils\Foods\AddVariationFoods;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,9 +32,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
 
     //* MANAGE FOODS
-    Route::prefix('/foods')->name('foods.')->group(function(){
+    Route::prefix('/foods')->name('foods.')->group(function () {
         Route::get('/',  Food::class)->name('view');
         Route::get('/add',  AddFoodCanvas::class)->name('add');
-
     });
 });
