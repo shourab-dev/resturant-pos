@@ -64,10 +64,13 @@ class AddFoodCanvas extends Component
             if ($this->currentStep < $this->steps) {
                 $this->currentStep++;
             }
-        } else {
-            if ($this->currentStep > 1) {
-                $this->currentStep--;
-            }
+        } else if ('save') {
+            $this->currentStep = 1;
+            $this->redirectRoute(name: 'foods.view', navigate: true);
+            $this->dispatch('toast', [
+                'type' => "success",
+                'msg' => "Your food Has been Added",
+            ]);
         }
     }
 

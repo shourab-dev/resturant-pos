@@ -4,6 +4,7 @@ namespace App\Livewire\Utils\Foods;
 
 use App\MediaUploader;
 use App\Models\Variation;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -33,9 +34,27 @@ class AddVariationFoods extends Component
         ];
     }
 
+    #[On('open-modal')]
+    function updateProperties($name, $id = null)
+    {
+        if ($name == 'variation') {
+            if ($id) {
+                $variation = Variation::select('id', 'price', 'detail', 'title')->find($id);
+                $this->editedId = $variation->id;
+                $this->title = $variation->title;
+                $this->price = $variation->price;
+                $this->detail = $variation->detail;
+            } else{
+                $this->reset('editedId','title','price', 'detail');
+            }
+        }
+    }
+
+
+
     function storeOrUpdateVariation()
     {
-        
+
         $this->validate();
 
         $variation = Variation::findOrNew($this->editedId);

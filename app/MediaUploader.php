@@ -17,4 +17,11 @@ trait MediaUploader
             return $filePath;
         }
     }
+
+    function removeMedia($old, $disk = 'public')
+    {
+        if ($old) {
+            Storage::disk($disk)->delete($old);
+        }
+    }
 }

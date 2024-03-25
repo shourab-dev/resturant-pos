@@ -131,7 +131,7 @@
                 <button class="main-btn primary-btn-outline btn-hover btn-sm" wire:click="nextStep()">Next</button>
             </div>
         </div>
-        <livewire:utils.foods.all-food-variations lazy :foodId="$foodId" />
+        <livewire:utils.foods.all-food-variations lazy :foodId="$foodId" modal="variation" />
 
 
     </div>
@@ -141,13 +141,17 @@
         <div class="d-flex justify-content-between align-items-center mb-25">
             <h5>Customize Addons</h5>
 
-            <button wire:click="$dispatch('open-modal', {name: 'addons'})"
-                class="main-btn primary-btn square-btn btn-sm btn-hover ">
-                Add
-                <i class="lni lni-circle-plus"></i>
-            </button>
+            <div>
+                <button wire:click="$dispatch('open-modal', {name: 'addons'})"
+                    class="main-btn primary-btn square-btn btn-sm btn-hover ">
+                    Add
+                    <i class="lni lni-circle-plus"></i>
+                </button>
+                  
+                <button class="main-btn primary-btn-outline btn-hover btn-sm" wire:click="nextStep('save')">Save Food <i class="lni lni-checkmark"></i></button>
+            </div>
         </div>
-        <livewire:utils.foods.all-food-variations lazy :foodId="$foodId" modelName="App\Models\Addon" />
+        <livewire:utils.foods.all-food-variations lazy :foodId="$foodId" modelName="App\Models\Addon"  modal="addons"/>
 
 
     </div>

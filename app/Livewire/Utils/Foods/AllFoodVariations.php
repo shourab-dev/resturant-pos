@@ -12,8 +12,9 @@ use Livewire\Component;
 class AllFoodVariations extends Component
 {
     public $modelName = "App\Models\Variation";
+    public $modal;
     #[Reactive]
-    public $foodId ;
+    public $foodId;
 
     function placeholder()
     {

@@ -1,4 +1,5 @@
 <div>
+    
     <input type="hidden" wire:model="foodId">
     <div class="input-style-1">
         <input type="text" wire:model="title" placeholder="Food Variation Name">

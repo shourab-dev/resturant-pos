@@ -2,11 +2,12 @@
 
 namespace App\Livewire\Utils\Foods;
 
-use App\MediaUploader;
 use App\Models\Addon;
-use Livewire\Attributes\Reactive;
+use App\MediaUploader;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Reactive;
 
 class AddAddons extends Component
 {
@@ -16,6 +17,21 @@ class AddAddons extends Component
     #[Reactive]
     public $foodId;
 
+
+    #[On('open-modal')]
+    function updateProperties($name, $id = null)
+    {
+        if ($name == 'addons') {
+            if ($id) {
+                $addon = Addon::select('id', 'price', 'title')->find($id);
+                $this->editedId = $addon->id;
+                $this->title = $addon->title;
+                $this->price = $addon->price;
+            } else {
+                $this->reset('editedId', 'title', 'price');
+            }
+        }
+    }
 
     public function saveOrUpdate()
     {
@@ -32,7 +48,9 @@ class AddAddons extends Component
         $addons->icon = $icon ?? $addons->icon;
         $addons->save();
         $this->dispatch('close-modal');
+        $this->reset('editedId', 'title', 'price');
         $this->dispatch('variation-added');
+        
     }
 
     public function render()
