@@ -4,7 +4,12 @@
         <livewire:utils.foods.add-variation-foods :foodId="$foodId" />
         @endslot
     </x-modal>
-    
+    <x-modal title="Addons" name="addons">
+        @slot('modalSlot')
+        <livewire:utils.foods.add-addons :foodId="$foodId" />
+        @endslot
+    </x-modal>
+
     @if ($currentStep == 1)
     <div class="card-style-3 mt-5 ">
         <div class="d-flex justify-content-between align-items-center mb-25">
@@ -115,15 +120,34 @@
     @if ($currentStep == 2)
     <div class="card-style-3 mt-5 ">
         <div class="d-flex justify-content-between align-items-center mb-25">
-            <h5>Add Food Variations</h5>
-            
-            <button wire:click="$dispatch('open-modal', {name: 'variation'})"
+            <h5>Add Food Variations {{ $currentStep }}</h5>
+
+            <div>
+                <button wire:click="$dispatch('open-modal', {name: 'variation'})"
+                    class="main-btn primary-btn square-btn btn-sm btn-hover ">
+                    Add
+                    <i class="lni lni-circle-plus"></i>
+                </button>
+                <button class="main-btn primary-btn-outline btn-hover btn-sm" wire:click="nextStep()">Next</button>
+            </div>
+        </div>
+        <livewire:utils.foods.all-food-variations lazy :foodId="$foodId" />
+
+
+    </div>
+    @endif
+    @if ($currentStep == 3)
+    <div class="card-style-3 mt-5 ">
+        <div class="d-flex justify-content-between align-items-center mb-25">
+            <h5>Customize Addons</h5>
+
+            <button wire:click="$dispatch('open-modal', {name: 'addons'})"
                 class="main-btn primary-btn square-btn btn-sm btn-hover ">
                 Add
                 <i class="lni lni-circle-plus"></i>
             </button>
         </div>
-        <livewire:utils.foods.all-food-variations  lazy :foodId="$foodId" />
+        <livewire:utils.foods.all-food-variations lazy :foodId="$foodId" modelName="App\Models\Addon" />
 
 
     </div>

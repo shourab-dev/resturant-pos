@@ -16,7 +16,7 @@ class AddFoodCanvas extends Component
 {
     use WithFileUploads, MediaUploader;
     public $editedId, $name, $shortDetail, $price, $caution, $foodImg, $iteration, $status = true, $featured = false, $categoriesIds, $categories = [];
-    public $steps = 4, $currentStep = 1;
+    public $steps = 3, $currentStep = 1;
     public $foodId = null; //* this will be null
 
 
@@ -57,6 +57,21 @@ class AddFoodCanvas extends Component
         $this->iteration++;
         $this->currentStep++;
     }
+
+    function nextStep($type = 'next')
+    {
+        if ($type == 'next') {
+            if ($this->currentStep < $this->steps) {
+                $this->currentStep++;
+            }
+        } else {
+            if ($this->currentStep > 1) {
+                $this->currentStep--;
+            }
+        }
+    }
+
+
 
     function mount()
     {
