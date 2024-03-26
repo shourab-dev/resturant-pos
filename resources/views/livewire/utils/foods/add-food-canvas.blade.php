@@ -17,7 +17,7 @@
             <button wire:loading.attr="disabled" wire:click="storeOrUpdate"
                 class="main-btn primary-btn square-btn btn-sm btn-hover ">
                 {{ $editedId ? "Edit" : "Store" }}
-                <i class="lni lni-{{ $editedId ? " pencil" : "circle-plus" }}"></i>
+                <i class="lni lni-{{ $editedId ? "pencil" : "circle-plus" }}"></i>
             </button>
         </div>
 
@@ -120,7 +120,7 @@
     @if ($currentStep == 2)
     <div class="card-style-3 mt-5 ">
         <div class="d-flex justify-content-between align-items-center mb-25">
-            <h5>Add Food Variations {{ $currentStep }}</h5>
+            <h5>Add Food Variations </h5>
 
             <div>
                 <button wire:click="$dispatch('open-modal', {name: 'variation'})"
@@ -147,11 +147,12 @@
                     Add
                     <i class="lni lni-circle-plus"></i>
                 </button>
-                  
-                <button class="main-btn primary-btn-outline btn-hover btn-sm" wire:click="nextStep('save')">Save Food <i class="lni lni-checkmark"></i></button>
+
+                <button class="main-btn primary-btn-outline btn-hover btn-sm" wire:click="nextStep('save')">Save Food <i
+                        class="lni lni-checkmark"></i></button>
             </div>
         </div>
-        <livewire:utils.foods.all-food-variations lazy :foodId="$foodId" modelName="App\Models\Addon"  modal="addons"/>
+        <livewire:utils.foods.all-food-variations lazy :foodId="$foodId" modelName="App\Models\Addon" modal="addons" />
 
 
     </div>
@@ -194,11 +195,11 @@
         window.addEventListener('refreshCategoryValues', function(){
             $('.multiSelectTag').val(null).trigger('change')  
         })
-        // window.addEventListener('updateCategories', function(){
-        //     let categoriesIds = $wire.branches;
+         window.addEventListener('updateCategories', function(){
+             let categoriesIds = $wire.categoriesIds;
             
-        //     $('.multiSelectTag').val(Object.values(categoriesIds)).trigger('change')  
-        // })
+             $('.multiSelectTag').val(Object.values(categoriesIds)).trigger('change')  
+        })
         
 
     })

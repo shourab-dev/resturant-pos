@@ -36,8 +36,9 @@ class Food extends Component
         ]);
     }
 
-    function deleteFood (ModelsFood $food){
-        $this->removeMedia($food->image);   
+    function deleteFood(ModelsFood $food)
+    {
+        $this->removeMedia($food->image);
         $food->delete();
         $this->dispatch('toast', [
             'type' => "success",
@@ -52,7 +53,10 @@ class Food extends Component
     {
         return view('livewire.backend.food', [
             'foods' => ModelsFood::whereHas('categories', function ($q) {
-                $q->where('category_id', auth()->user()->branch_id);
+
+                $q->whereHas('branches', function ($query) {
+                    $query->where('branch_id', auth()->user()->branch_id);
+                });
             })->withCount('variations as variations')->latest()->paginate(),
         ]);
     }

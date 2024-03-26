@@ -40,6 +40,15 @@
         </a>
 
     </li>
+    <li class="nav-item {{request()->routeIs('pos.*') ? 'active' : null }}">
+        <a href="{{ route('pos.all') }}" wire:navigate>
+            <span class="icon">
+                <i class="lni lni-cart"></i>
+            </span>
+            <span class="text">POS Manager</span>
+        </a>
+
+    </li>
     {{-- <li class="nav-item nav-item-has-children">
         <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_2" aria-controls="ddmenu_2"
             aria-expanded="false" aria-label="Toggle navigation">
