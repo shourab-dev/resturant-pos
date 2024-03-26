@@ -16,8 +16,8 @@ class AddFoodCanvas extends Component
 {
     use WithFileUploads, MediaUploader;
     public $editedId, $name, $shortDetail, $price, $caution, $foodImg, $iteration, $status = true, $featured = false, $categoriesIds, $categories = [];
-    public $steps = 3, $currentStep = 1;
-    public $foodId = null; //* this will be null
+    public $steps = 3, $currentStep = 2;
+    public $foodId = 4; //* this will be null
 
 
 

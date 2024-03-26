@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backend;
 
+use App\Livewire\Utils\Category\AllCategory;
 use App\MediaUploader;
 use App\Models\Branch;
 use Livewire\Component;
@@ -31,7 +32,7 @@ class Category extends Component
 
 
         $category = ModelsCategory::findOrNew($this->editedId);
-        $filePath = $this->uploadMedia($this->icon,str($this->title)->slug(),'categories',$category->icon);
+        $filePath = $this->uploadMedia($this->icon, str($this->title)->slug(), 'categories', $category->icon);
         $category->title = $this->title;
         $category->slug = str($this->title)->slug();
         $category->icon = $this->icon && !is_string($this->icon) ? $filePath : $category->icon;
@@ -47,6 +48,19 @@ class Category extends Component
             'msg' => "Category has been $type",
         ]);
         $this->dispatch('refreshBranchValues');
+    }
+
+
+
+    function deleteCategory(ModelsCategory $category)
+    {
+        $this->removeMedia($category->icon);
+        $category->delete();
+        $this->dispatch('toast', [
+            'type' => "success",
+            'msg' => "{$category->title} has been removed",
+        ]);
+        $this->dispatch('refreshBranchValues')->to(AllCategory::class);
     }
 
     private function createTagableBranch()

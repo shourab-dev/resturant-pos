@@ -37,7 +37,7 @@ class Food extends Component
     }
 
     function deleteFood (ModelsFood $food){
-        $this->removeMedia($food->image);
+        $this->removeMedia($food->image);   
         $food->delete();
         $this->dispatch('toast', [
             'type' => "success",
