@@ -11,6 +11,7 @@ class Pos extends Component
     public $search;
     public $foods;
     public $selectedCategories = [];
+    
 
 
     function mount()
