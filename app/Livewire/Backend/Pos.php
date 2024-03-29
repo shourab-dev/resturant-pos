@@ -11,7 +11,9 @@ class Pos extends Component
     public $search;
     public $foods;
     public $selectedCategories = [];
-    
+
+    public $selectedFoods = [];
+
 
 
     function mount()
@@ -58,6 +60,30 @@ class Pos extends Component
 
         $this->foods = $foodsItems;
     }
+
+
+    function selectedFoodsItems($food)
+    {
+
+        if (($key = array_search($food, $this->selectedFoods)) !== false) {
+            unset($this->selectedFoods[$key]);
+        } else {
+            // array_push($this->selectedFoods, $food);
+            $food['quantity'] = 1;
+            // array_unshift($this->selectedFoods, $food);
+            $this->selectedFoods[] = $food;
+        }
+    }
+
+    function updateFoodQuantity($key, $quantity)
+    {
+        if($key !== 0){
+        if (array_key_exists($key, $this->selectedFoods)) {
+            $this->selectedFoods[$key]['quantity'] = abs($quantity);
+        }
+        }
+    }
+
 
 
     public function render()
