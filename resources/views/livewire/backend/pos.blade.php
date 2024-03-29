@@ -80,10 +80,11 @@
 
                             </div>
                         </div>
-                        <div class="order_wrapper_list" x-data="{totalPrice: 0}" x-on:update-total="totalPrice += $event.detail">
+                        
+                        <div class="order_wrapper_list" wire:transition>
                             @foreach ($selectedFoods as $key=>$selectedFood)
                             <div class="items my-3" x-data="{price: {{ $selectedFood['price'] }}, quantity:1}"
-                                wire:key="{{ $selectedFood['id'] }}">
+                                wire:key="{{ $selectedFood['id'] }}" >
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-8">
                                         <div class="product d-flex align-items-center mb-2">
@@ -98,8 +99,8 @@
                                             <div class="quantity">
                                                 <input type="number" min="1" x-model="quantity" class="text-center "
                                                     placeholder="quantity"
-                                                    x-on:blur="$event.target.value > 0 ? quantity = $event.target.value : ($event.target.value == 0 ? quantity = 1 : quantity = Math.abs($event.target.value)) ; $dispatch('update-total', price * quantity)"
-                                                    x-on:keyup="$event.target.value > 0 ? quantity = $event.target.value : false;$wire.updateFoodQuantity({{ $key }}, $event.target.value);"
+                                                    x-on:blur="$event.target.value > 0 ? quantity = $event.target.value : ($event.target.value == 0 ? quantity = 1 : quantity = Math.abs($event.target.value)) ; $wire.updateFoodQuantity({{ $key }}, quantity);"
+                                                    x-on:keyup="$event.target.value > 0 ? quantity = $event.target.value : false;$wire.updateFoodQuantity({{ $key }}, quantity);"
                                                     style="height: 45px;border:1px solid #ccc;width:80px;">
                                             </div>
                                         </div>
@@ -113,7 +114,10 @@
                             </div>
                             @endforeach
                             <hr>
-                            <h3 >Total Price = <span x-text="totalPrice"></span></h3>
+                            @if (count($selectedFoods) > 0)
+                                
+                            <h3 class="text-end">Total Price:   <span>{{ $totalPrice }}</span> tk</h3>
+                            @endif
                         </div>
                     </div>
 

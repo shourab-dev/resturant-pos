@@ -13,6 +13,7 @@ class Pos extends Component
     public $selectedCategories = [];
 
     public $selectedFoods = [];
+    public $totalPrice = 0;
 
 
 
@@ -62,25 +63,35 @@ class Pos extends Component
     }
 
 
+
+
     function selectedFoodsItems($food)
     {
 
+
         if (($key = array_search($food, $this->selectedFoods)) !== false) {
             unset($this->selectedFoods[$key]);
+            
         } else {
-            // array_push($this->selectedFoods, $food);
             $food['quantity'] = 1;
-            // array_unshift($this->selectedFoods, $food);
+            $food['total_price'] = $food['price'] * $food['quantity'];
+
+
             $this->selectedFoods[] = $food;
         }
+
+
+        $this->totalPrice = array_sum(array_column($this->selectedFoods, 'total_price'));
     }
 
     function updateFoodQuantity($key, $quantity)
     {
-        if($key !== 0){
-        if (array_key_exists($key, $this->selectedFoods)) {
-            $this->selectedFoods[$key]['quantity'] = abs($quantity);
-        }
+        if ($quantity !== 0 && is_numeric($quantity)) {
+            if (array_key_exists($key, $this->selectedFoods)) {
+                $this->selectedFoods[$key]['quantity'] = abs($quantity);
+                $this->selectedFoods[$key]['total_price'] =  $this->selectedFoods[$key]['price'] * $this->selectedFoods[$key]['quantity'];
+            }
+            $this->totalPrice = array_sum(array_column($this->selectedFoods, 'total_price'));
         }
     }
 

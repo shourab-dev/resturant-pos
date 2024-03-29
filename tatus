@@ -1,0 +1,113 @@
+[33mcommit c40d39dee23278435fa49aaa4777fbfc4fe0ede4[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Fri Mar 29 22:10:44 2024 +0600
+
+    selected product show and price calculate
+
+[33mcommit d0f1f025f42ef3d26e90c192663b5e38a2c496a7[m
+Author: Shourab <shourab.cit.bd@gmail.com>
+Date:   Wed Mar 27 16:27:01 2024 +0600
+
+    pos
+
+[33mcommit 1536dae2199c0a50825b26ec963f07892434bdf1[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Tue Mar 26 23:30:30 2024 +0600
+
+    pos order
+
+[33mcommit 5cbad7ef27fdf1f6b77bf0b2bb49e34de7bef49d[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Tue Mar 26 11:42:48 2024 +0600
+
+    delete
+
+[33mcommit e61a468e4ff21c41a6c664ab24c098cf4f369cae[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Tue Mar 26 01:03:03 2024 +0600
+
+    food variation & addmon added with food view
+
+[33mcommit 658841bba8fd3f49f14ecaa73d5084fde348c7b4[m
+Author: Shourab <shourab.cit.bd@gmail.com>
+Date:   Mon Mar 25 16:42:11 2024 +0600
+
+    addons has been added
+
+[33mcommit e620fcc6f510f40d32fc56f71f4fef9368c73f6d[m
+Author: Shourab <shourab.cit.bd@gmail.com>
+Date:   Mon Mar 25 15:41:26 2024 +0600
+
+    variation added
+
+[33mcommit 17d2a835f5532fabbc6cef4d281a00c6d3512ba5[m
+Author: Shourab <shourab.cit.bd@gmail.com>
+Date:   Sun Mar 24 13:00:14 2024 +0600
+
+    food variation
+
+[33mcommit bf33119e0b1a9a5a8db9f5c81951e0855ea077b2[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Thu Mar 21 23:31:28 2024 +0600
+
+    add food variation processing
+
+[33mcommit 33713696086144cfe06b51e991dbc07467da229e[m
+Author: Shourab <shourab.cit.bd@gmail.com>
+Date:   Thu Mar 21 12:36:11 2024 +0600
+
+    done
+
+[33mcommit 8736762691915893ce8dafeceeb9421c8c86d902[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Thu Mar 21 01:10:05 2024 +0600
+
+    New Branch sys implemented 21/03/2024 1:10am
+
+[33mcommit 55afc692841e999f060b522cc6a0e7f1c1811396[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Thu Mar 21 00:00:09 2024 +0600
+
+    branch management 21/03/2024
+
+[33mcommit cb5696954baac2885007171d8065d42083d8489c[m
+Author: Shourab <shourab.cit.bd@gmail.com>
+Date:   Wed Mar 20 17:04:30 2024 +0600
+
+    branch selector
+
+[33mcommit 8c89c1ab99508ce1ac3fb8ccf437cf292e0c4e4a[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Wed Mar 20 00:32:18 2024 +0600
+
+    categories added with branch setup
+
+[33mcommit 90a01b97e0767d7815732706009f66e68c6f0051[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Tue Mar 19 20:22:31 2024 +0600
+
+    category component
+
+[33mcommit 0d075c09b0eafbbe701c62cd2efa6c2fa3718acf[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Tue Mar 19 17:56:25 2024 +0600
+
+    branch added and updated
+
+[33mcommit e73dc855f61d7e09b25ad3763e59c47a344ab520[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Tue Mar 19 12:01:21 2024 +0600
+
+    livewire profile com
+
+[33mcommit 9c9369ebb7572efe1955559113c9fa44ccde2e59[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Tue Mar 19 03:29:15 2024 +0600
+
+    done
+
+[33mcommit 5067af4430d9e499fb1ee6cf83b2fcbb4521f7c3[m
+Author: shourab <shourab.cit.bd@gmail.com>
+Date:   Mon Mar 18 00:30:23 2024 +0600
+
+    base starting
