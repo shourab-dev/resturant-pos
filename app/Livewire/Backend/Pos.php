@@ -4,7 +4,10 @@ namespace App\Livewire\Backend;
 
 use App\Models\Category;
 use App\Models\Food;
+use Livewire\Attributes\Title;
 use Livewire\Component;
+
+#[Title('Manage Foods')]
 
 class Pos extends Component
 {
@@ -16,7 +19,7 @@ class Pos extends Component
     public $totalPrice = 0;
 
 
-
+    
     function mount()
     {
         $foodsItems = Food::whereHas('categories', function ($q) {
@@ -68,19 +71,47 @@ class Pos extends Component
     function selectedFoodsItems($food)
     {
 
-
-        if (($key = array_search($food, $this->selectedFoods)) !== false) {
-            unset($this->selectedFoods[$key]);
-            
-        } else {
+        if (count($this->selectedFoods) === 0) {
             $food['quantity'] = 1;
             $food['total_price'] = $food['price'] * $food['quantity'];
-
-
             $this->selectedFoods[] = $food;
+        } else {
+
+            foreach ($this->selectedFoods as $key => $foodItem) {
+                // dd($foodItem['id'] === $food['id']);
+                if ($result = $foodItem['id'] === $food['id']) {
+
+                    unset($this->selectedFoods[$key]);
+                    break;
+                }
+            }
+            if (!$result) {
+                $food['quantity'] = 1;
+                $food['total_price'] = $food['price'] * $food['quantity'];
+                $this->selectedFoods[] = $food;
+            }
         }
 
+        $this->totalPrice = array_sum(array_column($this->selectedFoods, 'total_price'));
+    }
 
+
+    function removeFoodItem($food)
+    {
+
+        foreach ($this->selectedFoods as $key => $foodItem) {
+            if ($foodItem['id'] === $food['id']) {
+                unset($this->selectedFoods[$key]);
+                $this->dispatch('toast', [
+                    'type' => "success",
+                    'msg' => str($food['name'])->headline() . " has been removed",
+                ]);
+                $this->dispatch('remove-selected-food', [
+                    'id' => $food['id']
+                ]);
+                break;
+            }
+        }
         $this->totalPrice = array_sum(array_column($this->selectedFoods, 'total_price'));
     }
 

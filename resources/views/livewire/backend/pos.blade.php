@@ -16,7 +16,7 @@
 
 
                     <img src="{{  $category->icon ? asset('storage/'.$category->icon) : asset('placeholder/categoryPlaceholder.png') }}"
-                        alt="">
+                        alt="" style="width: 120px;height:120px;object-fit:cover;object-position:center;">
 
                     <h5>{{ str($category->title)->headline() }}</h5>
                 </a>
@@ -34,13 +34,13 @@
                     <div class="row">
                         @foreach ($foods as $food)
                         <div class="col-lg-4 col-6 mb-3" wire:key="{{ $food->id }}">
-                            <div class="card position-relative" x-data="{show: false, productId: {{ $food->id }}}">
+                            <div class="card position-relative" x-data="{show: false, productId: {{ $food->id }}}" x-on:remove-selected-food.window="$event.detail[0].id == productId ? show = false : null;">
                                 <span x-show="show && productId == {{ $food->id }}" class="text-primary checked"><i
                                         class="lni lni-checkmark-circle"></i></span>
                                 <a href="#" wire:click="selectedFoodsItems({{ $food }})"
                                     @click.prevent="productId == {{ $food->id }} ? show = !show : false;"
                                     x-bind:class=" show && productId == {{ $food->id }} ? 'opacity-25' : ''">
-                                    <img src="{{ asset('storage/'. $food->image) }}" alt="" class="card-img-top">
+                                    <img src="{{ asset('storage/'. $food->image) }}" alt="" class="card-img-top" style="width: 274px;height:184px;object-fit:cover;object-position:center;">
                                     <div class="card-body">
                                         <div class="d-lg-flex justify-content-between align-items-center">
                                             <h5>{{ $food->name }}</h5>
@@ -80,8 +80,8 @@
 
                             </div>
                         </div>
-                        
-                        <div class="order_wrapper_list" wire:transition>
+                      
+                        <div class="order_wrapper_list" >
                             @foreach ($selectedFoods as $key=>$selectedFood)
                             <div class="items my-3" x-data="{price: {{ $selectedFood['price'] }}, quantity:1}"
                                 wire:key="{{ $selectedFood['id'] }}" >
@@ -106,8 +106,9 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="itemPrice">
+                                        <div class="itemPrice d-flex align-items-center">
                                             <b><span x-text="Math.abs(price * quantity)" x-ref="calPrice"></span>tk</b>
+                                            <a href="#" wire:click.prevent="removeFoodItem({{ json_encode($selectedFood) }})" class="text-danger ms-2"><i class="lni lni-cross-circle"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -115,8 +116,16 @@
                             @endforeach
                             <hr>
                             @if (count($selectedFoods) > 0)
-                                
-                            <h3 class="text-end">Total Price:   <span>{{ $totalPrice }}</span> tk</h3>
+                            <div class="row">
+                                <div class="col-5">
+                                    <h3>Total Price:   <span>{{ $totalPrice }}</span> tk</h3>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <a href="#0" class="main-btn success-btn square-btn btn-sm  btn-hover btn-sm">
+                                     Place Order
+                                    </a>
+                                </div>
+                            </div>
                             @endif
                         </div>
                     </div>
