@@ -40,6 +40,15 @@
         </a>
 
     </li>
+    <li class="nav-item {{request()->routeIs('campaign.*') ? 'active' : null }}">
+        <a href="{{ route('campaign.view') }}" wire:navigate>
+            <span class="icon">
+             <i class="mdi mdi-gift-open-outline"></i>
+            </span>
+            <span class="text">Campaign</span>
+        </a>
+
+    </li>
     <li class="nav-item {{request()->routeIs('pos.*') ? 'active' : null }}">
         <a href="{{ route('pos.all') }}" wire:navigate>
             <span class="icon">

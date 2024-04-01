@@ -3,6 +3,7 @@
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Backend\Branch;
+use App\Livewire\Backend\Campaign;
 use App\Livewire\Backend\Category;
 use App\Livewire\Backend\Dashboard;
 use App\Livewire\Backend\Food;
@@ -36,6 +37,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::prefix('/foods')->name('foods.')->group(function () {
         Route::get('/',  Food::class)->name('view');
         Route::get('/add/{id?}',  AddFoodCanvas::class)->name('add');
+    });
+
+    //* Campaigns
+    Route::prefix('/campaign')->name('campaign.')->group(function(){
+        Route::get('/', Campaign::class)->name('view');
     });
 
     //* MANAGE POS & ORDERS
