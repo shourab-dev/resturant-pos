@@ -19,4 +19,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Food::class);
     }
+
+    function campaigns()
+    {
+        return $this->morphToMany(Campaign::class, 'campaignable');
+    }
 }

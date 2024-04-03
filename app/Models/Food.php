@@ -19,4 +19,9 @@ class Food extends Model
     {
         return $this->hasMany(Variation::class);
     }
+
+    function campaigns()
+    {
+        return $this->morphToMany(Campaign::class, 'campaignable');
+    }
 }

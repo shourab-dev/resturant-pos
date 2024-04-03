@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\CampaignController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Backend\Branch;
@@ -42,6 +43,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     //* Campaigns
     Route::prefix('/campaign')->name('campaign.')->group(function(){
         Route::get('/', Campaign::class)->name('view');
+        Route::get('/get-products-categories', [CampaignController::class, 'getProducts'])->name('products');
     });
 
     //* MANAGE POS & ORDERS

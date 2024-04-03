@@ -19,7 +19,7 @@
 </head>
 
 <body>
-  
+
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
         <div class="navbar-logo">
@@ -129,9 +129,26 @@
     "resources/backend/assets/js/main.js"
     ]
     )
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'
+        integrity='sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=='
+        crossorigin='anonymous'></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @livewireScripts
     <script>
-        const Toast = Swal.mixin({
+        document.addEventListener('livewire:navigated', ()=>{
+                const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+                },
+                });
+        })
+              const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
             showConfirmButton: false,
@@ -142,6 +159,7 @@
             toast.onmouseleave = Swal.resumeTimer;
             },
             });
+        
         window.addEventListener('toast', (e) => {
             const {type,msg} = e.detail[0]
                 
