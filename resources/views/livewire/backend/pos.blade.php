@@ -34,13 +34,15 @@
                     <div class="row">
                         @foreach ($foods as $food)
                         <div class="col-lg-4 col-6 mb-3" wire:key="{{ $food->id }}">
-                            <div class="card position-relative" x-data="{show: false, productId: {{ $food->id }}}" x-on:remove-selected-food.window="$event.detail[0].id == productId ? show = false : null;">
+                            <div class="card position-relative" 
+                            x-data="{show: false, productId: {{ $food->id }}}" 
+                            x-on:remove-selected-food.window="$event.detail[0].id == productId ? show = false : null;">
                                 <span x-show="show && productId == {{ $food->id }}" class="text-primary checked"><i
                                         class="lni lni-checkmark-circle"></i></span>
                                 <a href="#" wire:click="selectedFoodsItems({{ $food }})"
                                     @click.prevent="productId == {{ $food->id }} ? show = !show : false;"
                                     x-bind:class=" show && productId == {{ $food->id }} ? 'opacity-25' : ''">
-                                    <img src="{{ asset('storage/'. $food->image) }}" alt="" class="card-img-top" style="width: 274px;height:184px;object-fit:cover;object-position:center;">
+                                    <img src="{{ asset('storage/'. $food->image) }}" alt="" class="card-img-top" style="width: 274px;max-width:100%;height:184px;object-fit:cover;object-position:center;">
                                     <div class="card-body">
                                         <div class="d-lg-flex justify-content-between align-items-center">
                                             <h5>{{ $food->name }}</h5>

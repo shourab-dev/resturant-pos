@@ -84,7 +84,7 @@
                 </select>
             </div>
         </div>
-        <div class="input-style-1" x-show="discountBy == 'product' || discountBy == 'productExclude'">
+        <div wire:ignore class="input-style-1" x-show="discountBy == 'product' || discountBy == 'productExclude'">
             <input type="hidden" wire:model="productIds[]">
             <select  class="multiSelectTag" multiple data-class="product">
             </select>
