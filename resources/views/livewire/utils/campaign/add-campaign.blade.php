@@ -148,8 +148,8 @@
         });
         $('.multiSelectTag').on('select2:select', function (e) {
             
-            // $wire.set('productIds', $(this).val())
-            console.log($(this).val());
+            $wire.set('productIds', $(this).val())
+            
         });
         
         // $('.multiSelectTag').on('change',function(){

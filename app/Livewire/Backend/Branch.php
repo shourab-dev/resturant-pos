@@ -27,7 +27,7 @@ class Branch extends Component
         $branch = BranchModel::findOrNew($this->editedId);
 
         
-
+        
         $branch->title = $this->title;
         $branch->slug = str($this->title)->slug();
         $branch->save();

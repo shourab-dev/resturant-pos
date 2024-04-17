@@ -34,11 +34,7 @@ class AddCampaign extends Component
 
     function storeOrUpdate()
     {
-        if($this->productIds){
-            dd($this->productIds);
-        }
-
-        dd('nothing');
+        
         $this->validate();
         $campaign = Campaign::findOrNew($this->editedId);
         $campaign->name = $this->name;
@@ -50,7 +46,13 @@ class AddCampaign extends Component
         $campaign->discount_by = $this->discount_by;
         $campaign->save();
 
-        
+        if($this->productIds){
+            $campaign->foods()->sync($this->productIds);
+        }
+        if($this->categoryIds){
+            $campaign->foods()->sync($this->categoryIds);
+        }
+
 
     }
 
