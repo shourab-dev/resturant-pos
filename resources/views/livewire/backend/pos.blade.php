@@ -34,15 +34,16 @@
                     <div class="row">
                         @foreach ($foods as $food)
                         <div class="col-lg-4 col-6 mb-3" wire:key="{{ $food->id }}">
-                            <div class="card position-relative" 
-                            x-data="{show: false, productId: {{ $food->id }}}" 
-                            x-on:remove-selected-food.window="$event.detail[0].id == productId ? show = false : null;">
+                            <div class="card position-relative" x-data="{show: false, productId: {{ $food->id }}}"
+                                x-on:remove-selected-food.window="$event.detail[0].id == productId ? show = false : null;">
                                 <span x-show="show && productId == {{ $food->id }}" class="text-primary checked"><i
-                                        class="lni lni-checkmark-circle"></i></span>
+                                        class="lni lni-checkmark-circle"></i>
+                                </span>
                                 <a href="#" wire:click="selectedFoodsItems({{ $food }})"
                                     @click.prevent="productId == {{ $food->id }} ? show = !show : false;"
                                     x-bind:class=" show && productId == {{ $food->id }} ? 'opacity-25' : ''">
-                                    <img src="{{ asset('storage/'. $food->image) }}" alt="" class="card-img-top" style="width: 274px;max-width:100%;height:184px;object-fit:cover;object-position:center;">
+                                    <img src="{{ asset('storage/'. $food->image) }}" alt="" class="card-img-top"
+                                        style="width: 274px;max-width:100%;height:184px;object-fit:cover;object-position:center;">
                                     <div class="card-body">
                                         <div class="d-lg-flex justify-content-between align-items-center">
                                             <h5>{{ $food->name }}</h5>
@@ -58,7 +59,8 @@
                 </div>
 
             </div>
-            <div class="col-lg-5 order-1 order-lg-2 mb-5">
+
+            <div class="col-lg-5 order-1 order-lg-2 mb-5 orderPanel" x-ref="orderPanelRef">
                 <div class="card-style">
                     <h5 class="mb-25">Order Summary</h5>
 
@@ -67,8 +69,11 @@
                             <div class="row align-items-center">
                                 <div class="col-xl-8">
                                     <div class="select-position ">
-                                        <select wire:model="customer">
-                                            <option value="walking">Walking Customer</option>
+                                        <select wire:model="selectedCustomer">
+                                            @foreach ($customers as $customer)
+                                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -82,11 +87,11 @@
 
                             </div>
                         </div>
-                      
-                        <div class="order_wrapper_list" >
+
+                        <div class="order_wrapper_list">
                             @foreach ($selectedFoods as $key=>$selectedFood)
                             <div class="items my-3" x-data="{price: {{ $selectedFood['price'] }}, quantity:1}"
-                                wire:key="{{ $selectedFood['id'] }}" >
+                                wire:key="{{ $selectedFood['id'] }}">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-8">
                                         <div class="product d-flex align-items-center mb-2">
@@ -110,7 +115,9 @@
                                     <div class="col-4">
                                         <div class="itemPrice d-flex align-items-center">
                                             <b><span x-text="Math.abs(price * quantity)" x-ref="calPrice"></span>tk</b>
-                                            <a href="#" wire:click.prevent="removeFoodItem({{ json_encode($selectedFood) }})" class="text-danger ms-2"><i class="lni lni-cross-circle"></i></a>
+                                            <a href="#"
+                                                wire:click.prevent="removeFoodItem({{ json_encode($selectedFood) }})"
+                                                class="text-danger ms-2"><i class="lni lni-cross-circle"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -118,22 +125,31 @@
                             @endforeach
                             <hr>
                             @if (count($selectedFoods) > 0)
-                            <div class="row">
-                                <div class="col-5">
-                                    <h3>Total Price:   <span>{{ $totalPrice }}</span> tk</h3>
+                            <div class="row align-items-center">
+                                <div class="col-md">
+                                    <h5>Total Price: {{ $totalPrice }} tk</h5>
                                 </div>
-                                <div class="col-7 text-end">
-                                    <a href="#0" class="main-btn success-btn square-btn btn-sm  btn-hover btn-sm">
-                                     Place Order
+                                <div class="col-md text-start text-md-end mt-3 mt-lg-0">
+                                    <a href="#" wire:click.prevent="placeOrders();$dispatch('open-modal', {name: 'order-confirm'})"
+                                        class="main-btn success-btn square-btn btn-sm  btn-hover btn-sm">
+                                        Place Order
+
                                     </a>
                                 </div>
                             </div>
+                            <x-modal title="Order Invoice" name="order-confirm" width="600px">
+                                @slot('modalSlot')
+                                <livewire:order customerId="{{$selectedCustomer}}"  :orderItems="$selectedFoods"/>
+                                @endslot
+                            </x-modal>
                             @endif
                         </div>
                     </div>
 
                 </div>
             </div>
+
+
         </div>
     </div>
 
@@ -170,6 +186,32 @@
     slider.addEventListener('mousedown', startDragging, false);
     slider.addEventListener('mouseup', stopDragging, false);
     slider.addEventListener('mouseleave', stopDragging, false);
+
+
+
+    //*  order panel fixed
+   /**@argument
+    * let orderPanel = $('.orderPanel')
+    let orderPanelOffset = orderPanel.offset().top
+    
+    function fixOrderPanel() {
+    let scrTop = $(window).scrollTop()
+    console.log(scrTop, orderPanelOffset,scrTop > orderPanelOffset);
+    if(scrTop > orderPanelOffset){
+    orderPanel.addClass('fixed')
+    } else{
+    orderPanel.removeClass('fixed')
+    }
+    }
+    
+    
+    
+    window.addEventListener('scroll', fixOrderPanel)
+   */
+    
+    
+
+
 </script>
 @endscript
 
@@ -178,10 +220,29 @@
     .checked {
         position: absolute;
         font-size: 2rem;
-        z-index: 9999;
+        z-index: 1;
         top: 10px;
         right: 20px;
 
+    }
+
+    .orderPanel {
+        max-height: calc(100vh - 90px);
+        overflow-y: auto;
+
+
+    }
+
+    @media (min-width: 992px) {
+
+
+        .orderPanel.fixed {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            z-index: 999;
+            width: fit-content;
+        }
     }
 </style>
 @endassets

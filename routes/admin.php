@@ -41,7 +41,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     });
 
     //* Campaigns
-    Route::prefix('/campaign')->name('campaign.')->group(function(){
+    Route::prefix('/campaign')->name('campaign.')->group(function () {
         Route::get('/', Campaign::class)->name('view');
         Route::get('/get-products-categories', [CampaignController::class, 'getProducts'])->name('products');
     });

@@ -2,10 +2,14 @@
 
 namespace App\Livewire\Backend;
 
-use App\Models\Category;
 use App\Models\Food;
-use Livewire\Attributes\Title;
+use App\Models\Order;
 use Livewire\Component;
+use App\Models\Category;
+use App\Models\Customer;
+use App\Models\OrderItem;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 
 #[Title('Manage Foods')]
 
@@ -17,9 +21,10 @@ class Pos extends Component
 
     public $selectedFoods = [];
     public $totalPrice = 0;
+    public $selectedCustomer;
+    public $customers;
 
 
-    
     function mount()
     {
         $foodsItems = Food::whereHas('categories', function ($q) {
@@ -29,6 +34,11 @@ class Pos extends Component
             });
         })->latest()->get();
         $this->foods = $foodsItems;
+
+
+        $allCustomers = Customer::select('id', 'name')->get();
+        $this->selectedCustomer = $allCustomers->first()->id;
+        $this->customers = $allCustomers;
     }
     function updateSelectedCategories($id)
     {
@@ -134,6 +144,42 @@ class Pos extends Component
             'categories' => Category::whereHas('branches', function ($q) {
                 $q->where('branch_id', auth()->user()->branch_id);
             })->get(),
+        ]);
+    }
+
+    #[On('closeModal')]
+    function resetFoods()
+    {
+        $this->selectedFoods = [];
+    }
+
+    function placeOrders()
+    {
+
+        $order = new Order();
+        $order->user_id = auth()->user()->id;
+        $order->customer_id = $this->selectedCustomer;
+        $order->total_price = array_sum(array_column($this->selectedFoods, 'total_price'));
+        $order->qty = array_sum(array_column($this->selectedFoods, 'quantity'));
+        $order->payment = 'cash';
+        $order->save();
+        foreach ($this->selectedFoods as $foodItem) {
+
+
+            $orderItem = new OrderItem();
+            $orderItem->order_id = $order->id;
+            $orderItem->food_id = $foodItem['id'];
+            $orderItem->qty = $foodItem['quantity'];
+            $orderItem->price = $foodItem['price'];
+            $orderItem->total_price = $foodItem['total_price'];
+            $orderItem->save();
+        }
+
+
+
+        $this->dispatch('toast', [
+            'type' => "success",
+            'msg' => "Your order has been placed",
         ]);
     }
 }
